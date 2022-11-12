@@ -21,6 +21,5 @@ func Init(connUri string) (*amqp.Connection, *amqp.Channel) {
 		fmt.Printf("Successfully connected to RabbitMQ instance at %s \n", connUri)
 	}
 
-
 	return conn, ch
 }
