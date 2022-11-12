@@ -2,7 +2,8 @@ package main
 
 import (
 	"email-service/handlers"
-	"email-service/helpers"
+	"email-service/services/queue"
+  "email-service/services/ses"
 	"log"
 	"os"
 
@@ -10,17 +11,18 @@ import (
 )
 
 func main() {
-  err := godotenv.Load(".env")
+  loadEnvFileError := godotenv.Load(".env")
 
-  if err != nil {
+  if loadEnvFileError != nil {
     log.Fatalf("Error loading .env file")
   }
   
   queueUri := os.Getenv("RABBITMQ_URI")
 
   conn, ch := queue.Init(queueUri)
-
-  emails.Send(ch)
+ 
+  mailClient := ses.Init()
+  emails.Send(ch, mailClient)
 
   defer conn.Close()
 	defer ch.Close()

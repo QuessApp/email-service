@@ -7,16 +7,16 @@ import (
 
 // Create queue connection. Returns connection and channel
 func Init(connUri string) (*amqp.Connection, *amqp.Channel) {
-	conn, err := amqp.Dial(connUri)
+	conn, connectToQueueError := amqp.Dial(connUri)
   
-  if err != nil {
-    panic(err)
+  if connectToQueueError != nil {
+    panic(connectToQueueError)
   }
 
-	ch, err := conn.Channel()
+	ch, connectToChannelError := conn.Channel()
 
-	if err != nil {
-		panic(err)
+	if connectToChannelError != nil {
+		panic(connectToChannelError)
 	} else {
 		fmt.Printf("Successfully connected to RabbitMQ instance at %s \n", connUri)
 	}
