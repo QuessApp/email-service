@@ -20,7 +20,7 @@ type Email struct {
 
 // Consumes from queue then publishes messages
 func Send(ch *amqp.Channel, mailClient *sesv2.Client) {
-	msgs, err := ch.Consume(
+	msgs, consumeError := ch.Consume(
     "SendEmailReceivedNewQuestion", 
     "",
     false,
@@ -30,8 +30,8 @@ func Send(ch *amqp.Channel, mailClient *sesv2.Client) {
     nil,
   )
 
-  if err != nil {
-    panic(err)
+  if consumeError != nil {
+    panic(consumeError)
   }
   
   for msg := range(msgs) {
@@ -49,7 +49,9 @@ func Send(ch *amqp.Channel, mailClient *sesv2.Client) {
       log.Fatal(marshEmailPayloadError)
     }
 
-    sendToAwsSES(emailPayload, mailClient)
+    go func() {
+      sendToAwsSES(emailPayload, mailClient)
+    }()
   }
 }
 
