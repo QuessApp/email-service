@@ -3,7 +3,7 @@ package main
 import (
 	"email-service/handlers"
 	"email-service/services/queue"
-  "email-service/services/ses"
+	"email-service/services/ses"
 	"log"
 	"os"
 
@@ -20,8 +20,8 @@ func main() {
   queueUri := os.Getenv("RABBITMQ_URI")
 
   conn, ch := queue.Init(queueUri)
- 
   mailClient := ses.Init()
+  
   emails.Send(ch, mailClient)
 
   defer conn.Close()

@@ -49,9 +49,7 @@ func Send(ch *amqp.Channel, mailClient *sesv2.Client) {
       log.Fatal(marshEmailPayloadError)
     }
 
-    go func() {
-      sendToAwsSES(emailPayload, mailClient)
-    }()
+    sendToAwsSES(emailPayload, mailClient)
   }
 }
 
@@ -79,11 +77,12 @@ func sendToAwsSES(emailPayload Email, mailClient *sesv2.Client) {
     },
   }
 
-  _, createMailError := mailClient.SendEmail(context.Background(), mail)
+  // TODO: RECOVER APP WHEN EMAIL DOES NOT EXISTS
+  _, sendEmailError := mailClient.SendEmail(context.Background(), mail)
 
-  if createMailError != nil {
-    log.Fatal(createMailError)
+  if sendEmailError != nil {
+    log.Fatal(sendEmailError)
   }
 
-  fmt.Printf("Email sent to %s \n", mailTo)
+  fmt.Printf("Email %s sent to %s \n", emailPayload.Body, mailTo)
 }

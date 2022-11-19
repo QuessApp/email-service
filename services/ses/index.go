@@ -12,7 +12,7 @@ import (
 
 var mailClient *sesv2.Client
 
-// Connect to SES then return mail client
+// Connect to SES then returns mail client
 func Init() *sesv2.Client {
 	accessKey := os.Getenv("AWS_ACCESS_KEY")
 	secretKey := os.Getenv("AWS_SECRET_KEY")
