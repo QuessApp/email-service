@@ -21,7 +21,7 @@ type Email struct {
 // Consumes from queue then publishes messages
 func Send(ch *amqp.Channel, mailClient *sesv2.Client) {
 	msgs, consumeError := ch.Consume(
-    "SendEmailReceivedNewQuestion", 
+    "SendEmail", 
     "",
     false,
     false,
