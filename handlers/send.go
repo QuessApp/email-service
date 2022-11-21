@@ -45,8 +45,8 @@ func Send(ch *amqp.Channel, mailClient *sesv2.Client) {
 
     var emailPayload Email 
 
-    if marshEmailPayloadError := json.Unmarshal(msg.Body, &emailPayload); marshEmailPayloadError != nil {
-      log.Fatal(marshEmailPayloadError)
+    if unmarshEmailPayloadError := json.Unmarshal(msg.Body, &emailPayload); unmarshEmailPayloadError != nil {
+      log.Fatal(unmarshEmailPayloadError)
     }
 
     sendToAwsSES(emailPayload, mailClient)
