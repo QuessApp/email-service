@@ -3,6 +3,7 @@ module email-service
 go 1.18
 
 require (
+	github.com/Luzifer/go-openssl v2.0.0+incompatible // indirect
 	github.com/aws/aws-sdk-go v1.44.136 // indirect
 	github.com/aws/aws-sdk-go-v2 v1.17.1 // indirect
 	github.com/aws/aws-sdk-go-v2/config v1.18.0 // indirect
@@ -20,5 +21,6 @@ require (
 	github.com/aws/smithy-go v1.13.4 // indirect
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
 	github.com/joho/godotenv v1.4.0 // indirect
+	github.com/mergermarket/go-pkcs7 v0.0.0-20170926155232-153b18ea13c9 // indirect
 	github.com/streadway/amqp v1.0.0 // indirect
 )
