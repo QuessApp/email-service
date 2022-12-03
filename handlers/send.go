@@ -5,7 +5,6 @@ import (
 	"email-service/services/crypto"
 	"encoding/json"
 	"fmt"
-	"log"
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/sesv2"
 	"github.com/aws/aws-sdk-go-v2/service/sesv2/types"
@@ -46,15 +45,15 @@ func Send(ch *amqp.Channel, mailClient *sesv2.Client) {
     var emailPayload Email 
 
     if unmarshEmailPayloadError := json.Unmarshal([]byte(decrytypedMessage), &emailPayload); unmarshEmailPayloadError != nil {
-      log.Fatal(unmarshEmailPayloadError)
+      fmt.Print(unmarshEmailPayloadError)
     }
-    
+
     sendToAwsSES(emailPayload, mailClient)
 
     ackMessageError := msg.Ack(true)
 
     if ackMessageError != nil {
-      log.Fatal(ackMessageError)
+      fmt.Print(ackMessageError)
     }
 
     fmt.Printf("Acked message %s \n", msg.Body)
@@ -89,7 +88,7 @@ func sendToAwsSES(emailPayload Email, mailClient *sesv2.Client) {
   _, sendEmailError := mailClient.SendEmail(context.Background(), mail)
 
   if sendEmailError != nil {
-    log.Fatal(sendEmailError)
+    fmt.Print(sendEmailError)
   }
 
   fmt.Printf("Email %s sent to %s \n", emailPayload.Body, mailTo)
