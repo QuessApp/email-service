@@ -5,6 +5,8 @@ import (
 	"email-service/services/crypto"
 	"encoding/json"
 	"fmt"
+	"os"
+
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/sesv2"
 	"github.com/aws/aws-sdk-go-v2/service/sesv2/types"
@@ -61,10 +63,11 @@ func Send(ch *amqp.Channel, mailClient *sesv2.Client) {
 }
 
 func sendToAwsSES(emailPayload Email, mailClient *sesv2.Client) {
+  from := os.Getenv("AWS_EMAIL_FROM")
   mailTo := emailPayload.To
   charset := aws.String("UTF-8")
   mail := &sesv2.SendEmailInput{
-    FromEmailAddress: aws.String(mailTo),
+    FromEmailAddress: aws.String(from),
     Destination: &types.Destination{
       ToAddresses: []string{ mailTo },
     },
