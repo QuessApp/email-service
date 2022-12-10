@@ -1,9 +1,9 @@
 package main
 
 import (
-	"email-service/handlers"
-	"email-service/services/queue"
-	"email-service/services/ses"
+	emails "consumer-email-manager/handlers"
+	"consumer-email-manager/services/queue"
+	"consumer-email-manager/services/ses"
 	"log"
 	"os"
 

@@ -1,8 +1,8 @@
 package emails
 
 import (
+	"consumer-email-manager/services/crypto"
 	"context"
-	"email-service/services/crypto"
 	"encoding/json"
 	"fmt"
 	"os"

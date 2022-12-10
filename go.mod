@@ -1,4 +1,4 @@
-module email-service
+module consumer-email-manager
 
 go 1.18
 
