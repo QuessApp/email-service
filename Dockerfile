@@ -10,8 +10,8 @@ RUN go mod download
 
 COPY *.go ./
 
-RUN go build -o /consumer-email-manager
+RUN go build -o consumer-email-manager
 
 EXPOSE 8080
 
-CMD [ "/consumer-email-manager" ]
+CMD [ "consumer-email-manager" ]
