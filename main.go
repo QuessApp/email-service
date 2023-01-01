@@ -11,19 +11,19 @@ import (
 )
 
 func main() {
-  loadEnvFileError := godotenv.Load(".env")
+	loadEnvFileError := godotenv.Load(".env")
 
-  if loadEnvFileError != nil {
-    log.Fatalf("Error loading .env file")
-  }
-  
-  queueUri := os.Getenv("RABBITMQ_URI")
+	if loadEnvFileError != nil {
+		log.Fatalf("Error loading .env file")
+	}
 
-  conn, ch := queue.Init(queueUri)
-  mailClient := ses.Init()
-  
-  emails.Send(ch, mailClient)
+	queueUri := os.Getenv("RABBITMQ_URI")
 
-  defer conn.Close()
+	conn, ch := queue.Init(queueUri)
+	mailClient := ses.Init()
+
+	emails.Send(ch, mailClient)
+
+	defer conn.Close()
 	defer ch.Close()
 }

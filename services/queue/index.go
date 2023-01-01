@@ -2,16 +2,17 @@ package queue
 
 import (
 	"fmt"
+
 	"github.com/streadway/amqp"
 )
 
 // Create queue connection then returns connection and channel
 func Init(connUri string) (*amqp.Connection, *amqp.Channel) {
 	conn, connectToQueueError := amqp.Dial(connUri)
-  
-  if connectToQueueError != nil {
-    panic(connectToQueueError)
-  }
+
+	if connectToQueueError != nil {
+		panic(connectToQueueError)
+	}
 
 	ch, connectToChannelError := conn.Channel()
 
