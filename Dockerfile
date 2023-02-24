@@ -4,12 +4,12 @@ FROM golang:1.19
 
 WORKDIR /app
 
-RUN go mod init consumer-email-manager
+RUN go mod init email-service
 
 COPY . .
 
-RUN go build -o consumer-email-manager
+RUN go build -o email-service
 
 EXPOSE 8080
 
-CMD [ "./consumer-email-manager" ]
+CMD [ "./email-service" ]

@@ -1,9 +1,9 @@
 package handlers
 
 import (
-	"consumer-email-manager/pkg/crypto"
-	"consumer-email-manager/pkg/entities"
 	"context"
+	"email-service/pkg/crypto"
+	"email-service/pkg/entities"
 	"encoding/json"
 
 	"log"
