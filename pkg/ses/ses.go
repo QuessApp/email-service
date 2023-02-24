@@ -10,10 +10,8 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/sesv2"
 )
 
-var mailClient *sesv2.Client
-
-// Connect to SES then returns mail client
-func Init() *sesv2.Client {
+// Configure configures AWS SES client.
+func Configure() *sesv2.Client {
 	accessKey := os.Getenv("AWS_ACCESS_KEY")
 	secretKey := os.Getenv("AWS_SECRET_KEY")
 	region := os.Getenv("AWS_REGION")
@@ -33,7 +31,5 @@ func Init() *sesv2.Client {
 		log.Fatal(createAmazonConfigurationError)
 	}
 
-	mailClient = sesv2.NewFromConfig(amazonConfiguration)
-
-	return mailClient
+	return sesv2.NewFromConfig(amazonConfiguration)
 }

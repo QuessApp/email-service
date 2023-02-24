@@ -4,6 +4,7 @@ import (
 	"crypto/aes"
 	"crypto/cipher"
 	"encoding/hex"
+	"log"
 	"os"
 
 	"github.com/mergermarket/go-pkcs7"
@@ -11,20 +12,24 @@ import (
 
 func Decrypt(encrypted string) (string, error) {
 	key := []byte(os.Getenv("CYPHER_KEY"))
+
 	cipherText, _ := hex.DecodeString(encrypted)
 
 	block, err := aes.NewCipher(key)
+
 	if err != nil {
-		panic(err)
+		log.Fatalln(err)
 	}
 
 	if len(cipherText) < aes.BlockSize {
-		panic("cipherText too short")
+		log.Fatalln("cipherText too short")
 	}
+
 	iv := cipherText[:aes.BlockSize]
 	cipherText = cipherText[aes.BlockSize:]
+
 	if len(cipherText)%aes.BlockSize != 0 {
-		panic("cipherText is not a multiple of the block size")
+		log.Fatalln("cipherText is not a multiple of the block size")
 	}
 
 	mode := cipher.NewCBCDecrypter(block, iv)
