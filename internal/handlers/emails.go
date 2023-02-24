@@ -1,7 +1,8 @@
 package handlers
 
 import (
-	"consumer-email-manager/services/crypto"
+	"consumer-email-manager/pkg/crypto"
+	"consumer-email-manager/pkg/entities"
 	"context"
 	"encoding/json"
 
@@ -13,13 +14,6 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/sesv2/types"
 	"github.com/streadway/amqp"
 )
-
-// Email is model for each email in app.
-type Email struct {
-	To      string
-	Subject string
-	Body    string
-}
 
 // Consume Consumes from queue then publishes messages.
 func Consume(ch *amqp.Channel, client *sesv2.Client, queueName string) {
@@ -44,25 +38,31 @@ func Consume(ch *amqp.Channel, client *sesv2.Client, queueName string) {
 
 		if err != nil {
 			log.Fatalln(err)
+			return
 		}
 
-		email := Email{}
+		email := entities.Email{}
 
 		if err := json.Unmarshal([]byte(decrytypedMessage), &email); err != nil {
 			log.Fatalln(err)
+			return
 		}
 
-		sendToSES(email, client)
+		if err := sendToSES(email, client); err != nil {
+			log.Fatalln(err)
+			return
+		}
 
 		if err := msg.Ack(true); err != nil {
 			log.Fatalln(err)
+			return
 		}
 
 		log.Printf("Acked message %s \n", msg.Body)
 	}
 }
 
-func sendToSES(email Email, client *sesv2.Client) {
+func sendToSES(email entities.Email, client *sesv2.Client) error {
 	from := os.Getenv("AWS_EMAIL_FROM")
 	mailTo := email.To
 	charset := aws.String("UTF-8")
@@ -87,9 +87,9 @@ func sendToSES(email Email, client *sesv2.Client) {
 		},
 	}
 
-	if _, err := client.SendEmail(context.Background(), mail); err != nil {
-		log.Println(err)
-	}
+	_, err := client.SendEmail(context.Background(), mail)
 
 	log.Printf("Email %s sent to %s \n", email.Body, mailTo)
+
+	return err
 }
