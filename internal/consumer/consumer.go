@@ -5,10 +5,10 @@ import (
 	"log"
 
 	"github.com/aws/aws-sdk-go-v2/service/sesv2"
-	"github.com/kuriozapp/toolkit/crypto"
-	"github.com/kuriozapp/toolkit/entities"
-	"github.com/kuriozapp/toolkit/queue"
-	"github.com/kuriozapp/toolkit/ses"
+	"github.com/quessapp/toolkit/crypto"
+	"github.com/quessapp/toolkit/entities"
+	"github.com/quessapp/toolkit/queue"
+	"github.com/quessapp/toolkit/ses"
 	"github.com/streadway/amqp"
 )
 
@@ -33,12 +33,13 @@ func Consume(ch *amqp.Channel, client *sesv2.Client, queueName, cipherKey, mailF
 		email := entities.Email{}
 
 		if err := json.Unmarshal([]byte(decrytypedMessage), &email); err != nil {
-			log.Fatalln(err)
+			log.Fatalf("Error unmarshalling message: %s \n", err)
 			return
 		}
 
 		if err := ses.SendToSES(email, mailFrom, client); err != nil {
 			log.Println(err)
+			return
 		}
 
 		if err := msg.Ack(true); err != nil {

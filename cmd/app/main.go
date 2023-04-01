@@ -5,8 +5,8 @@ import (
 	"log"
 	"os"
 
-	"github.com/kuriozapp/toolkit/queue"
-	"github.com/kuriozapp/toolkit/ses"
+	"github.com/quessapp/toolkit/queue"
+	"github.com/quessapp/toolkit/ses"
 
 	"github.com/joho/godotenv"
 )

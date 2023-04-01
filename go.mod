@@ -5,7 +5,7 @@ go 1.18
 require (
 	github.com/aws/aws-sdk-go-v2/service/sesv2 v1.16.4
 	github.com/joho/godotenv v1.4.0
-	github.com/kuriozapp/toolkit v0.0.0-20230225230305-9dd211f14c0c
+	github.com/quessapp/toolkit v0.0.0-20230324133112-7f56a7df43a8
 	github.com/streadway/amqp v1.0.0
 )
 
