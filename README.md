@@ -81,7 +81,7 @@ When you run the above command, it will perform some actions, such as:
 
 Contributions are always welcome!
 
-See [contributing.md](https://github.com/QuessApp/core-go/blob/master/.github/CONTRIBUTING.md) for ways to get started.
+See [contributing.md](https://github.com/QuessApp/email-service/blob/master/.github/CONTRIBUTING.md) for ways to get started.
 
 Please adhere to this project's code of conduct.
 
