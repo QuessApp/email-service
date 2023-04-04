@@ -36,7 +36,7 @@ Este Código de Conduta se aplica a todos os espaços comunitários e também se
 
 ## Aplicação
 
-Casos de comportamento abusivo, de assédio ou de outra forma inaceitável podem ser relatados aos líderes da comunidade responsáveis ​​pela aplicação por meio de [issues](https://github.com/QuessApp/core-go/issues). Todas as reclamações serão analisadas e investigadas prontamente e de forma justa.
+Casos de comportamento abusivo, de assédio ou de outra forma inaceitável podem ser relatados aos líderes da comunidade responsáveis ​​pela aplicação por meio de [issues](https://github.com/QuessApp/email-service/issues). Todas as reclamações serão analisadas e investigadas prontamente e de forma justa.
 
 Todos os líderes comunitários são obrigados a respeitar a privacidade e a segurança do relator de qualquer incidente.
 
